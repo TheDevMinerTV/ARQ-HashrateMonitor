@@ -1,13 +1,13 @@
 const { RPCDaemon } = require('@arqma/arqma-rpc')
-// const ws281x = require('rpi-ws281x-native')
+const ws281x = require('rpi-ws281x-native')
 
-// let pixelData = new Uint32Array(27)
+let pixelData = new Uint32Array(30)
 
 let rpcDaemon = new RPCDaemon({
-  url: 'http://127.0.0.1:59444'
+  url: 'http://192.168.43.140:59444'
 })
 
-// ws281x.init(27)
+ws281x.init(30)
 
 function log(source, text) {
   console.log(`${new Date().toTimeString()} | ${source} | ${text}`)
@@ -26,10 +26,11 @@ function getInfo() {
     }
   })
 }
+
 rpcDaemon.socketConnect()
 
 process.on('SIGINT', function () {
-  // ws281x.reset();
+  ws281x.reset();
   rpcDaemon.socketEnd()
   rpcDaemon.socketDestroy()
 
@@ -38,5 +39,15 @@ process.on('SIGINT', function () {
 
 setInterval(async () => {
   const info = await getInfo()
-  log('Blockchain monitor', `${info.nethash / 1000 / 1000} MH/s @ diff ${info.difficulty} on block ${info.height}`)
+  const nethash = info.nethash / 1000 / 1000
+  log('Blockchain monitor', `${nethash} MH/s @ diff ${info.difficulty} on block ${info.height}`)
+
+  for (let i = 0; i <= 30; i++) {
+    pixelData[i] = rgb2Int(0, 0, 0)
+  }
+  for (let i = 0; i < Math.round(nethash / 10); i++) {
+    pixelData[i] = rgb2Int(255, 255, 255)
+  }
+
+  ws281x.render(pixelData)
 }, 5000)
