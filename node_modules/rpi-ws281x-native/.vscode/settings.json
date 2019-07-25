@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "ios": "cpp",
+        "ws2811.h": "c",
+        "chrono": "cpp",
+        "hash_map": "cpp",
+        "unordered_map": "cpp",
+        "__functional_03": "cpp",
+        "functional": "cpp"
+    }
+}
