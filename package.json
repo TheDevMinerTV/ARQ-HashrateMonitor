@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "@arqma/arqma-rpc": "^0.1.8",
-    "rpi-ws281x-native": "^0.9.0"
+    "rpi-ws281x-native": "^0.10.0"
   }
 }
