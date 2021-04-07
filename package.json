@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@arqma/arqma-rpc": "^0.1.8",
+    "@arqma/arqma-rpc": "^0.2.1",
     "rpi-ws281x-native": "^1.0.0"
   }
 }
